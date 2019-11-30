@@ -29,6 +29,10 @@ class Rebate(models.Model):
 
     application_type = models.ForeignKey(RebateType, on_delete=models.CASCADE, null=True)
 
+    approved_date = models.DateTimeField(null=True)
+    payment_date = models.DateTimeField(null=True)
+    amount = models.IntegerField(default=0)
+
     def __str__(self):
         return self.name    
 

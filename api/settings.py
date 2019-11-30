@@ -53,6 +53,7 @@ INSTALLED_APPS = [
 
     'applications',
     'assessments',
+    'evaluations',
     'houses',
     'organisations',
     'rebates',
