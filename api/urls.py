@@ -75,6 +75,19 @@ assessment_types_router = router.register(
     'assessment-types', AssessmentTypeViewSet
 )
 
+from evaluations.views import (
+    EvaluationViewSet,
+    EvaluationTypeViewSet
+)
+
+evaluations_router = router.register(
+    'evaluations', EvaluationViewSet
+)
+
+evaluation_types_router = router.register(
+    'evaluation-types', EvaluationTypeViewSet
+)
+
 from houses.views import (
     HouseViewSet,
     HouseTypeViewSet    
