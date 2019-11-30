@@ -27,6 +27,9 @@ class Evaluation(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     name = models.CharField(max_length=100, default='NA')
 
+    mark = models.CharField(max_length=100, default='NA')
+    comment = models.CharField(max_length=100, default='NA')
+
     evaluation_date = models.DateTimeField(null=True)
     evaluation_type = models.ForeignKey(EvaluationType, on_delete=models.CASCADE, null=True)
 
