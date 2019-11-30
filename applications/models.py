@@ -27,6 +27,15 @@ class Application(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     name = models.CharField(max_length=100, default='NA')
 
+    status = models.CharField(max_length=100, default='NA')
+
+    applicant = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, related_name='applicant')
+    evaluator_nominated = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, related_name='evaluator_nominated')
+    evaluator_executed = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, related_name='evaluator_executed')
+
+    application_date = models.DateTimeField(null=True)
+    
+
     application_type = models.ForeignKey(ApplicationType, on_delete=models.CASCADE, null=True)
 
     def __str__(self):

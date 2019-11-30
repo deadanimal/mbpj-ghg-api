@@ -43,3 +43,19 @@ class Assessment(models.Model):
     def __str__(self):
         return self.name    
 
+class AssessmentDetail(models.Model):
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
+    name = models.CharField(max_length=100, default='NA')
+
+    aspect = models.CharField(max_length=100, default='NA')
+    initiative = models.CharField(max_length=100, default='NA')
+    improvement = models.CharField(max_length=100, default='NA')
+    quantity = models.CharField(max_length=100, default='NA')
+    rebate = models.CharField(max_length=100, default='NA')
+
+    assessment = models.ForeignKey(Assessment, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return self.name            
+
