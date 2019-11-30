@@ -49,6 +49,59 @@ users_router = router.register(
     'users', CustomUserViewSet
 )
 
+from applications.views import (
+    ApplicationViewSet,
+    ApplicationTypeViewSet
+)
+
+applications_router = router.register(
+    'applications', ApplicationViewSet
+)
+
+application_types_router = router.register(
+    'application-types', ApplicationTypeViewSet
+)
+
+from assessments.views import (
+    AssessmentViewSet,
+    AssessmentTypeViewSet
+)
+
+assessments_router = router.register(
+    'assessments', AssessmentViewSet
+)
+
+assessment_types_router = router.register(
+    'assessment-types', AssessmentTypeViewSet
+)
+
+from houses.views import (
+    HouseViewSet,
+    HouseTypeViewSet    
+)
+
+houses_router = router.register(
+    'houses', HouseViewSet
+)
+
+house_types_router = router.register(
+    'house-types', HouseTypeViewSet
+)
+
+from rebates.views import (
+    RebateViewSet,
+    RebateTypeViewSet       
+)
+
+rebates_router = router.register(
+    'rebates', RebateViewSet
+)
+
+rebate_types_router = router.register(
+    'rebate-types', RebateTypeViewSet
+)
+
+
 
 
 
