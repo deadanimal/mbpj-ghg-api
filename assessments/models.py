@@ -16,10 +16,21 @@ from users.models import (
 class AssessmentType(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
-    name = models.CharField(max_length=100, default='NA')
+
+    ASSESSMENT_GROUP = [
+        ('NA', 'Not Available'),   
+    ]
+
+    assessment_group = models.CharField(
+        max_length=2,
+        choices=ASSESSMENT_GROUP,
+        default='NA',
+    )     
+
+    max_rebate = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.name
+        return self.assessment_group
 
 
 class Assessment(models.Model):
@@ -27,7 +38,7 @@ class Assessment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     name = models.CharField(max_length=100, default='NA')
 
-    application_type = models.ForeignKey(AssessmentType, on_delete=models.CASCADE, null=True)
+    assessment_type = models.ForeignKey(AssessmentType, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.name    
