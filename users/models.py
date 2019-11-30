@@ -11,12 +11,23 @@ from django.db import models
 
 #from SuperAPI.helpers import PathAndRename
 
+class UserOccupation(models.Model):
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
+    name = models.CharField(blank=True, max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
 class CustomUser(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     full_name = models.CharField(blank=True, max_length=255)
     
     new_nric = models.CharField(blank=True, max_length=255)
     old_nric = models.CharField(blank=True, max_length=255)
+
+    occupation = models.ForeignKey(UserOccupation, on_delete=models.CASCADE, null=True)
 
     #profile_picture = models.ImageField(null=True, upload_to=PathAndRename('images'))
 
