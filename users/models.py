@@ -13,7 +13,11 @@ from django.db import models
 
 class CustomUser(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    #full_name = models.CharField(blank=True, max_length=255)
+    full_name = models.CharField(blank=True, max_length=255)
+    
+    new_nric = models.CharField(blank=True, max_length=255)
+    old_nric = models.CharField(blank=True, max_length=255)
+
     #profile_picture = models.ImageField(null=True, upload_to=PathAndRename('images'))
 
     USER_TYPE = [
