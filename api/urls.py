@@ -122,12 +122,12 @@ rebate_types_router = router.register(
 urlpatterns = [
 
     url(r'v1/', include(router.urls)),
-    #url(r'auth/', include('rest_auth.urls')),
-    #url(r'auth/registration/', include('rest_auth.registration.urls')),
+    url(r'auth/', include('rest_auth.urls')),
+    url(r'auth/registration/', include('rest_auth.registration.urls')),
 
-    #url('auth/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
-    #url('auth/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  
-    #url('auth/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    url('auth/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    url('auth/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  
+    url('auth/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 
 
 
