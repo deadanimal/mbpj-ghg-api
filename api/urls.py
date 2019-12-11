@@ -60,7 +60,7 @@ applications_router = router.register(
 )
 
 application_assessments_router = router.register(
-    'application-assessment', ApplicationAssessmentViewSet
+    'application-assessments', ApplicationAssessmentViewSet
 )
 
 application_evaluations_router = router.register(
