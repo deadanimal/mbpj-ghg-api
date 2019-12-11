@@ -7,17 +7,14 @@ from django.conf import settings
 from django.utils.translation import gettext as _
 from rest_framework import serializers
 
-
 from django.utils.timezone import now
-
-
-
 
 from .models import (
     Application,
-    ApplicationType
+    ApplicationAssessment,
+    ApplicationEvaluation,
+    ApplicationEvaluationSchedule
 )
-
 
 class ApplicationSerializer(serializers.ModelSerializer):
 
@@ -26,9 +23,23 @@ class ApplicationSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ['id']
 
-class ApplicationTypeSerializer(serializers.ModelSerializer):
+class ApplicationAssessmentSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = ApplicationType
+        model = ApplicationAssessment
         fields = '__all__'
-        read_only_fields = ['id']        
+        read_only_fields = ['id']
+
+class ApplicationEvaluationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ApplicationEvaluation
+        fields = '__all__'
+        read_only_fields = ['id']
+
+class ApplicationEvaluationScheduleSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ApplicationEvaluationSchedule
+        fields = '__all__'
+        read_only_fields = ['id']

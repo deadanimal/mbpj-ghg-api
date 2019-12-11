@@ -6,51 +6,38 @@ from django.utils.formats import get_format
 from django.contrib.gis.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-#from mbpj_ghg_api.helpers import PathAndRename
-
+from api.helpers import PathAndRename
 
 from users.models import (
     CustomUser
 )
 
-class HouseType(models.Model):
-
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
-    name = models.CharField(max_length=100, default='NA')
-
-    def __str__(self):
-        return self.name
-
-
-
 class House(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
-    name = models.CharField(max_length=100, default='NA')
-
     applicant = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
-
     address = models.CharField(blank=True, max_length=255)
     assessment_tax_account = models.CharField(blank=True, max_length=255)
-    building_type = models.CharField(blank=True, max_length=255)
-    stay_duration = models.CharField(blank=True, max_length=255)
-    parmanent_occupant = models.CharField(blank=True, max_length=255)
 
-    #house_type = models.ForeignKey(HouseType, on_delete=models.CASCADE, null=True)
+    BUILDING_TYPE = [
+        ('CD', 'Condominium'),
+        ('FL', 'Flat'),
+        ('TO', 'Townhouse'),
+        ('TE', 'Terrace House'),
+        ('BG', 'Bungalow'),
+        ('SD', 'Semidetached'),
+        ('AP', 'Apartment'),
+        ('SA', 'Service Apartment'),
+        ('OT', 'Other')
+    ]
+
+    building_type = models.CharField(max_length=2, choices=BUILDING_TYPE, default='BG')
+    stay_begin = models.DateField(null=True)
+    permanent_occupant = models.IntegerField(default=0)
+    vehicle_car = models.IntegerField(default=0)
+    vehicle_motorcycle = models.IntegerField(default=0)
+    vehicle_bicycle = models.IntegerField(default=0)
+    vehicle_other = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.name    
-
-
-class HouseVehicle(models.Model):
-
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
-    name = models.CharField(max_length=100, default='NA')
-
-    house = models.ForeignKey(House, on_delete=models.CASCADE, null=True)
-
-    vehicle_type = models.CharField(blank=True, max_length=255)
-
-    def __str__(self):
-        return self.name        
-
+        return self.name

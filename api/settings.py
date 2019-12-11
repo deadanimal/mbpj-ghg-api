@@ -14,10 +14,8 @@ import os
 from decouple import config
 from datetime import timedelta
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -30,7 +28,6 @@ ALLOWED_HOSTS = [
     'sic-001-mbpj-ghg.herokuapp.com',
     '127.0.0.1',
 ]
-
 
 # Application definition
 
@@ -52,15 +49,10 @@ INSTALLED_APPS = [
     'rest_auth.registration', 
 
     'applications',
-    'assessments',
-    'evaluations',
     'houses',
     'organisations',
     'rebates',
     'users',
-    
-    
-
 ]
 
 MIDDLEWARE = [
@@ -99,7 +91,6 @@ WSGI_APPLICATION = 'api.wsgi.application'
 ##########
 ####### Database
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',#'django_multitenant.backends.postgresql',#'django.contrib.gis.db.backends.postgis',
@@ -108,7 +99,6 @@ DATABASES = {
     }
 }
 
-
 import dj_database_url
 db_from_env = dj_database_url.config(default=config('DATABASE_URL'), conn_max_age=500)
 DATABASES['default'].update(db_from_env)
@@ -116,12 +106,9 @@ DATABASES['default'].update(db_from_env)
 if any(db_from_env):
     DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
-
 ####### 
 ##########
 ##########
-
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -138,7 +125,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -149,12 +135,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True

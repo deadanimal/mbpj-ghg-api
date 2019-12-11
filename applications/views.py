@@ -8,20 +8,21 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework import viewsets, status
 from rest_framework_extensions.mixins import NestedViewSetMixin
 
-
 from django_filters.rest_framework import DjangoFilterBackend
-
 
 from .models import (
     Application, 
-    ApplicationType
+    ApplicationAssessment,
+    ApplicationEvaluation,
+    ApplicationEvaluationSchedule
 )
 
 from .serializers import (
     ApplicationSerializer, 
-    ApplicationTypeSerializer
+    ApplicationAssessmentSerializer,
+    ApplicationEvaluationSerializer,
+    ApplicationEvaluationScheduleSerializer
 )
-
 
 class ApplicationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = Application.objects.all()
@@ -39,13 +40,28 @@ class ApplicationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     
     def get_queryset(self):
         queryset = Application.objects.all()
-        return queryset    
+        return queryset
 
+class ApplicationAssessmentViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+    queryset = ApplicationAssessment.objects.all()
+    serializer_class = ApplicationAssessmentSerializer
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
 
+    def get_permissions(self):
+        if self.action == 'list':
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [AllowAny]
 
-class ApplicationTypeViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
-    queryset = ApplicationType.objects.all()
-    serializer_class = ApplicationTypeSerializer
+        return [permission() for permission in permission_classes]    
+    
+    def get_queryset(self):
+        queryset = ApplicationAssessment.objects.all()
+        return queryset        
+
+class ApplicationEvaluationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+    queryset = ApplicationEvaluation.objects.all()
+    serializer_class = ApplicationEvaluationSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
 
     def get_permissions(self):
@@ -56,7 +72,23 @@ class ApplicationTypeViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
         return [permission() for permission in permission_classes]    
 
-    
     def get_queryset(self):
-        queryset = ApplicationType.objects.all()
-        return queryset        
+        queryset = ApplicationEvaluation.objects.all()
+        return queryset
+
+class ApplicationEvaluationScheduleViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+    queryset = ApplicationEvaluationSchedule.objects.all()
+    serializer_class = ApplicationEvaluationScheduleSerializer
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+
+    def get_permissions(self):
+        if self.action == 'list':
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [AllowAny]
+
+        return [permission() for permission in permission_classes]    
+
+    def get_queryset(self):
+        queryset = ApplicationEvaluationSchedule.objects.all()
+        return queryset

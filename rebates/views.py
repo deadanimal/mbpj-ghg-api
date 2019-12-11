@@ -8,20 +8,15 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework import viewsets, status
 from rest_framework_extensions.mixins import NestedViewSetMixin
 
-
 from django_filters.rest_framework import DjangoFilterBackend
 
-
 from .models import (
-    Rebate, 
-    RebateType
+    Rebate
 )
 
 from .serializers import (
-    RebateSerializer, 
-    RebateTypeSerializer
+    RebateSerializer
 )
-
 
 class RebateViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = Rebate.objects.all()
@@ -34,29 +29,8 @@ class RebateViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
         else:
             permission_classes = [AllowAny]
 
-        return [permission() for permission in permission_classes]    
+        return [permission() for permission in permission_classes]
 
-    
     def get_queryset(self):
         queryset = Rebate.objects.all()
-        return queryset    
-
-
-
-class RebateTypeViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
-    queryset = RebateType.objects.all()
-    serializer_class = RebateTypeSerializer
-    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
-
-    def get_permissions(self):
-        if self.action == 'list':
-            permission_classes = [AllowAny]
-        else:
-            permission_classes = [AllowAny]
-
-        return [permission() for permission in permission_classes]    
-
-    
-    def get_queryset(self):
-        queryset = RebateType.objects.all()
-        return queryset        
+        return queryset

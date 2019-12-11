@@ -9,18 +9,11 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['username'] = user.username
         token['email'] = user.email
         token['user_type'] = user.user_type
-        
 
         return token
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
-
-
-
-
-
-
 
 from django.shortcuts import render
 from django.db.models import Q
@@ -32,18 +25,17 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework import viewsets, status
 from rest_framework_extensions.mixins import NestedViewSetMixin
 
-
 from django_filters.rest_framework import DjangoFilterBackend
 
-
 from .models import (
-    CustomUser, 
+    CustomUser,
+    UserOccupation
 )
 
 from .serializers import (
-    CustomUserSerializer, 
+    CustomUserSerializer,
+    UserOccupationSerializer
 )
-
 
 class CustomUserViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
@@ -56,11 +48,26 @@ class CustomUserViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
         else:
             permission_classes = [AllowAny]
 
-        return [permission() for permission in permission_classes]    
+        return [permission() for permission in permission_classes]
 
-    
     def get_queryset(self):
         queryset = CustomUser.objects.all()
-        return queryset    
+        return queryset
 
+class UserOccupationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+    queryset = UserOccupation.objects.all()
+    serializer_class = UserOccupationSerializer
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+
+    def get_permissions(self):
+        if self.action == 'list':
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [AllowAny]
+
+        return [permission() for permission in permission_classes]
+
+    def get_queryset(self):
+        queryset = UserOccupation.objects.all()
+        return queryset
         

@@ -1,4 +1,3 @@
-
 from datetime import datetime, timedelta
 
 from django.conf import settings
@@ -14,7 +13,6 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView
 )
 
-
 from users.views import (
     MyTokenObtainPairView
 )
@@ -25,15 +23,12 @@ from organisations.views import (
 )
 
 from users.views import (
-    CustomUserViewSet
+    CustomUserViewSet,
+    UserOccupationViewSet
 )
-
-
 
 class NestedDefaultRouter(NestedRouterMixin, routers.DefaultRouter):
     pass
-
-
 
 router = NestedDefaultRouter()
 
@@ -49,75 +44,48 @@ users_router = router.register(
     'users', CustomUserViewSet
 )
 
+user_occupations_router = router.register(
+    'user-occupations', UserOccupationViewSet
+)
+
 from applications.views import (
     ApplicationViewSet,
-    ApplicationTypeViewSet
+    ApplicationAssessmentViewSet,
+    ApplicationEvaluationViewSet,
+    ApplicationEvaluationScheduleViewSet
 )
 
 applications_router = router.register(
     'applications', ApplicationViewSet
 )
 
-application_types_router = router.register(
-    'application-types', ApplicationTypeViewSet
+application_assessments_router = router.register(
+    'application-assessment', ApplicationAssessmentViewSet
 )
 
-from assessments.views import (
-    AssessmentViewSet,
-    AssessmentTypeViewSet
+application_evaluations_router = router.register(
+    'application-evaluations', ApplicationEvaluationViewSet
 )
 
-assessments_router = router.register(
-    'assessments', AssessmentViewSet
-)
-
-assessment_types_router = router.register(
-    'assessment-types', AssessmentTypeViewSet
-)
-
-from evaluations.views import (
-    EvaluationViewSet,
-    EvaluationTypeViewSet
-)
-
-evaluations_router = router.register(
-    'evaluations', EvaluationViewSet
-)
-
-evaluation_types_router = router.register(
-    'evaluation-types', EvaluationTypeViewSet
+application_evaluation_schedules_router = router.register(
+    'application-evaluation-schedules', ApplicationEvaluationScheduleViewSet
 )
 
 from houses.views import (
-    HouseViewSet,
-    HouseTypeViewSet    
+    HouseViewSet
 )
 
 houses_router = router.register(
     'houses', HouseViewSet
 )
 
-house_types_router = router.register(
-    'house-types', HouseTypeViewSet
-)
-
 from rebates.views import (
-    RebateViewSet,
-    RebateTypeViewSet       
+    RebateViewSet      
 )
 
 rebates_router = router.register(
     'rebates', RebateViewSet
 )
-
-rebate_types_router = router.register(
-    'rebate-types', RebateTypeViewSet
-)
-
-
-
-
-
 
 urlpatterns = [
 
@@ -126,10 +94,7 @@ urlpatterns = [
     url(r'auth/registration/', include('rest_auth.registration.urls')),
 
     url('auth/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
-    url('auth/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  
+    url('auth/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     url('auth/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
-
-
-
 
 ]

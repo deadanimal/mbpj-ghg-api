@@ -6,32 +6,22 @@ from django.utils.formats import get_format
 from django.contrib.gis.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-#from mbpj_ghg_api.helpers import PathAndRename
+from api.helpers import PathAndRename
 
 
 from users.models import (
     CustomUser
 )
-
-class RebateType(models.Model):
-
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
-    name = models.CharField(max_length=100, default='NA')
-
-    def __str__(self):
-        return self.name
-
+from applications.models import (
+    Application
+)
 
 class Rebate(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
-    name = models.CharField(max_length=100, default='NA')
-
-    application_type = models.ForeignKey(RebateType, on_delete=models.CASCADE, null=True)
-
-    approved_date = models.DateTimeField(null=True)
-    payment_date = models.DateTimeField(null=True)
-    amount = models.IntegerField(default=0)
+    application_id = models.ForeignKey(Application, on_delete=models.CASCADE, null=True, related_name='application')
+    payment_date = models.DateField(null=True)
+    amount_approved = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name    
