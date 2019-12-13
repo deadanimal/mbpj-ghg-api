@@ -41,6 +41,7 @@ class CustomUserViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+    filterset_fields = ['user_type', 'gender', 'occupation']
 
     def get_permissions(self):
         if self.action == 'list':

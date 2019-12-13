@@ -22,6 +22,7 @@ class HouseViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = House.objects.all()
     serializer_class = HouseSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+    filterset_fields = ['building_type', 'applicant']
 
     def get_permissions(self):
         if self.action == 'list':

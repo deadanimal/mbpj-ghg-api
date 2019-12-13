@@ -38,3 +38,6 @@ class House(models.Model):
     vehicle_motorcycle = models.IntegerField(default=0)
     vehicle_bicycle = models.IntegerField(default=0)
     vehicle_other = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.assessment_tax_account
