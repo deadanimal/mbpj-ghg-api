@@ -12,6 +12,10 @@ from users.models import (
     CustomUser
 )
 
+from houses.models import (
+    House
+)
+
 class Application(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
@@ -28,6 +32,7 @@ class Application(models.Model):
         ('NA', 'Not Available')
     ]
 
+    applied_house = models.ForeignKey(House, on_delete=models.CASCADE, null=True, related_name='applied_house_id')
     status = models.CharField(max_length=2, choices=STATUS, default='SN')
     date_submitted = models.DateField(null=True)
 
