@@ -28,7 +28,7 @@ class ApplicationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
-    filterset_fields = ['status', 'applied_house', 'evaluator_nominated']
+    filterset_fields = ['status', 'applied_house', 'evaluator_nominated', 'applicant']
 
     def get_permissions(self):
         if self.action == 'list':
