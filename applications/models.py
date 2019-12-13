@@ -32,8 +32,8 @@ class Application(models.Model):
         ('NA', 'Not Available')
     ]
 
-    applied_house = models.ForeignKey(House, on_delete=models.CASCADE, null=True, related_name='applied_house_id')
     status = models.CharField(max_length=2, choices=STATUS, default='SN')
+    applied_house = models.ForeignKey(House, on_delete=models.CASCADE, null=True, related_name='applied_house_id')
     date_submitted = models.DateField(null=True)
 
 class ApplicationAssessment(models.Model):
