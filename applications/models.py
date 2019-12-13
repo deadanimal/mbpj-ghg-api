@@ -55,7 +55,7 @@ class ApplicationAssessment(models.Model):
     improvement = models.CharField(max_length=100, default='NA')
     quantity =  models.IntegerField(default=0)
     rebate_percentage = models.IntegerField(default=0)
-    #supporting_doc = models.ImageField(null=True, upload_to=PathAndRename('assessment'))
+    supporting_doc = models.ImageField(null=True, upload_to=PathAndRename('assessment'))
 
     def __str__(self):
         return self.name
@@ -78,8 +78,8 @@ class ApplicationEvaluation(models.Model):
     date_evaluated = models.DateField(null=True)
     supporting_doc = models.ImageField(null=True, upload_to=PathAndRename('evaluation'))
 
-    def __str__(self):
-        return self.name
+    #def __str__(self):
+        #return self.name
 
 class ApplicationEvaluationSchedule(models.Model):
 
