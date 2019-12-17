@@ -26,6 +26,7 @@ class CustomUser(AbstractUser):
     old_nric = models.CharField(blank=True, max_length=255)
 
     phone = models.CharField(blank=True, max_length=255)
+    tel = models.CharField(blank=True,max_length=255)
     email = models.CharField(blank=True, max_length=255)
     
     GENDER_TYPE = [

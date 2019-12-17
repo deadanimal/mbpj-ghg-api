@@ -24,10 +24,8 @@ class House(models.Model):
         ('FL', 'Flat'),
         ('TO', 'Townhouse'),
         ('TE', 'Terrace House'),
-        ('BG', 'Bungalow'),
-        ('SD', 'Semidetached'),
-        ('AP', 'Apartment'),
-        ('SA', 'Service Apartment'),
+        ('BS', 'Bungalow / Semidetached'),
+        ('AS', 'Apartment / Service Apartment'),
         ('OT', 'Other')
     ]
 
