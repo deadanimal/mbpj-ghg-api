@@ -23,16 +23,17 @@ class Application(models.Model):
     evaluator_nominated = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, related_name='evaluator_nominated_id')
     
     STATUS = [
-        ('SN', 'Sent'),
-        ('AV', 'Approved'),
-        ('RJ', 'Rejected'),
-        ('IP', 'In process'),
-        ('EV', 'Evaluated'),
+        ('CM', 'Completed'),
+        ('CR', 'Created'),
+        ('IE', 'In evaluation'),
+        ('IP', 'In profess'),
+        ('NA', 'Not Available'),
         ('PD', 'Paid'),
-        ('NA', 'Not Available')
+        ('RJ', 'Rejected'),
+        ('SM', 'Submitted')
     ]
 
-    status = models.CharField(max_length=2, choices=STATUS, default='SN')
+    status = models.CharField(max_length=2, choices=STATUS, default='CR')
     applied_house = models.ForeignKey(House, on_delete=models.CASCADE, null=True, related_name='applied_house_id')
     date_submitted = models.DateField(null=True)
 
