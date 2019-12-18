@@ -14,6 +14,7 @@ from .models import (
     Application, 
     ApplicationAssessment,
     ApplicationEvaluation,
+    ApplicationEvaluationAssessment,
     ApplicationEvaluationSchedule
 )
 
@@ -21,6 +22,7 @@ from .serializers import (
     ApplicationSerializer, 
     ApplicationAssessmentSerializer,
     ApplicationEvaluationSerializer,
+    ApplicationEvaluationAssessmentSerializer,
     ApplicationEvaluationScheduleSerializer
 )
 
@@ -61,11 +63,29 @@ class ApplicationAssessmentViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
         queryset = ApplicationAssessment.objects.all()
         return queryset        
 
+class ApplicationEvaluationAssessmentViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+    queryset = ApplicationEvaluationAssessment.objects.all()
+    serializer_class = ApplicationEvaluationAssessmentSerializer
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+    filterset_fields = ['aspect_type']
+
+    def get_permissions(self):
+        if self.action == 'list':
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [AllowAny]
+
+        return [permission() for permission in permission_classes]    
+
+    def get_queryset(self):
+        queryset = ApplicationEvaluationAssessment.objects.all()
+        return queryset
+
 class ApplicationEvaluationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = ApplicationEvaluation.objects.all()
     serializer_class = ApplicationEvaluationSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
-    filterset_fields = ['evaluation_type', 'date_evaluated', 'assessment_id']
+    filterset_fields = ['evaluation_assessment_id']
 
     def get_permissions(self):
         if self.action == 'list':

@@ -60,23 +60,38 @@ class ApplicationAssessment(models.Model):
     #def __str__(self):
         #return self.name
 
-class ApplicationEvaluation(models.Model):
+class ApplicationEvaluationAssessment(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
-    assessment_id = models.ForeignKey(ApplicationAssessment, on_delete=models.CASCADE, null=True, related_name='application_assessment_id_evaluation')
+    name = models.CharField(max_length=100, default='NA')
 
-    EVALUATION_TYPE = [
-        ('EQ', 'Equipment'),
-        ('SY', 'System'),
-        ('EF', 'Efficiency'),
+    ASPECT_TYPE = [
+        ('EN', 'Energy'),
+        ('WA', 'Water'),
+        ('TR', 'Transportation'),
+        ('BI', 'Biodiversity'),
+        ('WE', 'Waste'),
         ('NA', 'Not Available')
     ]
 
-    evaluation_type = models.CharField(max_length=2, choices=EVALUATION_TYPE, default='NA')
-    mark = models.IntegerField(default=0)
-    comment = models.CharField(max_length=100, default='NA')
-    date_evaluated = models.DateField(null=True)
-    supporting_doc = models.ImageField(null=True, upload_to=PathAndRename('evaluation'))
+    aspect_type = models.CharField(max_length=2, choices=ASPECT_TYPE, default="NA")
+
+    aspect = models.CharField(max_length=100, default='NA')
+    incentive = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return self.name
+
+class ApplicationEvaluation(models.Model):
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
+    evaluation_assessment_id = models.ForeignKey(ApplicationEvaluationAssessment, on_delete=models.CASCADE, null=True, related_name='application_assessment_id_evaluation')
+    
+    equipment = models.IntegerField(default=0)
+    system = models.IntegerField(default=0)
+    efficiency = models.IntegerField(default=0)
+
+    remarks = models.CharField(max_length=100, default='NA')
 
     #def __str__(self):
         #return self.name

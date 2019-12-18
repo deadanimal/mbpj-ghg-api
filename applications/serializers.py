@@ -13,6 +13,7 @@ from .models import (
     Application,
     ApplicationAssessment,
     ApplicationEvaluation,
+    ApplicationEvaluationAssessment,
     ApplicationEvaluationSchedule
 )
 
@@ -34,6 +35,13 @@ class ApplicationEvaluationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ApplicationEvaluation
+        fields = '__all__'
+        read_only_fields = ['id']
+
+class ApplicationEvaluationAssessmentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ApplicationEvaluationAssessment
         fields = '__all__'
         read_only_fields = ['id']
 

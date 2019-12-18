@@ -52,6 +52,7 @@ from applications.views import (
     ApplicationViewSet,
     ApplicationAssessmentViewSet,
     ApplicationEvaluationViewSet,
+    ApplicationEvaluationAssessmentViewSet,
     ApplicationEvaluationScheduleViewSet
 )
 
@@ -65,6 +66,10 @@ application_assessments_router = router.register(
 
 application_evaluations_router = router.register(
     'application-evaluations', ApplicationEvaluationViewSet
+)
+
+application_evaluation_assessments_router = router.register(
+    'application-evaluation-assessments', ApplicationEvaluationAssessmentViewSet
 )
 
 application_evaluation_schedules_router = router.register(
