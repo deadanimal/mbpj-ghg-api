@@ -85,6 +85,7 @@ class ApplicationEvaluationAssessment(models.Model):
 class ApplicationEvaluation(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
+    application_id = models.ForeignKey(Application, on_delete=models.CASCADE, null=True, related_name='application_id_evaluation')
     evaluation_assessment_id = models.ForeignKey(ApplicationEvaluationAssessment, on_delete=models.CASCADE, null=True, related_name='application_assessment_id_evaluation')
     
     equipment = models.IntegerField(default=0)
