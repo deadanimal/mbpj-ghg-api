@@ -84,6 +84,14 @@ houses_router = router.register(
     'houses', HouseViewSet
 )
 
+from medias.views import (
+    MediaViewSet
+)
+
+medias_router = router.register(
+    'medias', MediaViewSet
+)
+
 from rebates.views import (
     RebateViewSet      
 )

@@ -52,6 +52,7 @@ INSTALLED_APPS = [
 
     'applications',
     'houses',
+    'medias',
     'organisations',
     'rebates',
     'users',
