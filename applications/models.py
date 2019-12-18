@@ -25,8 +25,8 @@ class Application(models.Model):
     STATUS = [
         ('CM', 'Completed'),
         ('CR', 'Created'),
-        ('IE', 'In evaluation'),
-        ('IP', 'In profess'),
+        ('IE', 'In Evaluation'),
+        ('IP', 'In Progress'),
         ('NA', 'Not Available'),
         ('PD', 'Paid'),
         ('RJ', 'Rejected'),
