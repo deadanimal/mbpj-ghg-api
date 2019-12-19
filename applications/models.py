@@ -51,7 +51,7 @@ class ApplicationAssessment(models.Model):
         ('NA', 'Not Available')
     ]
     
-    assessment_type = models.CharField(max_length=2, choices=ASSESSMENT_TYPE, default="NA")
+    assessment_type = models.CharField(max_length=2, choices=ASSESSMENT_TYPE, default='NA')
     initiative = models.CharField(max_length=100, default='NA')
     improvement = models.CharField(max_length=100, default='NA')
     quantity =  models.IntegerField(default=0)

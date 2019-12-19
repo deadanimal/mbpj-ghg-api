@@ -22,6 +22,7 @@ class RebateViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = Rebate.objects.all()
     serializer_class = RebateSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+    filterset_fields = ['application_id']
 
     def get_permissions(self):
         if self.action == 'list':

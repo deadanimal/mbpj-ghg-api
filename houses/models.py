@@ -30,7 +30,6 @@ class House(models.Model):
     ]
 
     building_type = models.CharField(max_length=2, choices=BUILDING_TYPE, default='BG')
-    #stay_begin = models.DateField(null=True)
     staying_duration_years = models.IntegerField(default=0)
     staying_duration_months = models.IntegerField(default=0)
     permanent_occupant = models.IntegerField(default=0)

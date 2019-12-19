@@ -21,7 +21,6 @@ class OrganisationType(models.Model):
     def __str__(self):
         return self.name
 
-
 class Organisation(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
@@ -30,5 +29,4 @@ class Organisation(models.Model):
     client_type = models.ForeignKey(OrganisationType, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return self.name    
-
+        return self.name
