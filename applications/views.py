@@ -85,7 +85,7 @@ class ApplicationEvaluationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = ApplicationEvaluation.objects.all()
     serializer_class = ApplicationEvaluationSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
-    filterset_fields = ['evaluation_assessment_id']
+    filterset_fields = ['evaluation_assessment_id', 'application_id']
 
     def get_permissions(self):
         if self.action == 'list':
