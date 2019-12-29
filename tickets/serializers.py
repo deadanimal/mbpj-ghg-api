@@ -9,11 +9,18 @@ from rest_framework import serializers
 from django.utils.timezone import now
 
 from .models import (
-    House
+    TicketAnswer,
+    TicketQuestion
 )
 
-class HouseSerializer(serializers.ModelSerializer):
+class TicketAnswerSerializer(serializers.ModelSerializer):
     class Meta:
-        model = House
+        model = TicketAnswer
+        fields = '__all__'
+        read_only_fields = ['id']
+
+class TicketQuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TicketQuestion
         fields = '__all__'
         read_only_fields = ['id']

@@ -14,7 +14,6 @@ from .models import (
 )
 
 class RebateSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Rebate
         fields = '__all__'

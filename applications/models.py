@@ -16,11 +16,31 @@ from houses.models import (
     House
 )
 
-class Application(models.Model):
-
+class AssessmentAspect(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
-    applicant = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, related_name='applicant')
-    evaluator_nominated = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, related_name='evaluator_nominated_id')
+    name = models.CharField(max_length=100, default='NA')
+
+    ASPECT_TYPE = [
+        ('EN', 'Energy'),
+        ('WA', 'Water'),
+        ('TR', 'Transportation'),
+        ('BI', 'Biodiversity'),
+        ('WE', 'Waste'),
+        ('NA', 'Not Available')
+    ]
+
+    aspect_type = models.CharField(max_length=2, choices=ASPECT_TYPE, default='NA')
+
+    aspect = models.CharField(max_length=100, default='NA')
+    incentive = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return self.name
+
+class Application(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
+    applicant = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, related_name='application_applicant')
+    evaluator_nominated = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, related_name='application_evaluator_nominated')
     
     STATUS = [
         ('CM', 'Completed'),
@@ -38,77 +58,40 @@ class Application(models.Model):
     date_submitted = models.DateField(null=True)
 
 class ApplicationAssessment(models.Model):
-
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
-    application_id = models.ForeignKey(Application, on_delete=models.CASCADE, null=True, related_name='application_id_assessment')
-
-    ASSESSMENT_TYPE = [
-        ('EN', 'Energy'),
-        ('WA', 'Water'),
-        ('TR', 'Transportation'),
-        ('BI', 'Biodiversity'),
-        ('WE', 'Waste'),
-        ('NA', 'Not Available')
-    ]
-    
-    assessment_type = models.CharField(max_length=2, choices=ASSESSMENT_TYPE, default='NA')
-    initiative = models.CharField(max_length=100, default='NA')
-    improvement = models.CharField(max_length=100, default='NA')
-    quantity =  models.IntegerField(default=0)
-    rebate_percentage = models.IntegerField(default=0)
+    application = models.ForeignKey(Application, on_delete=models.CASCADE, null=True, related_name='application_assessment_application')
+    assessment_aspect = models.ForeignKey(AssessmentAspect, on_delete=models.CASCADE, null=True, related_name='application_assessment_assessment_aspect')
+    remarks = models.CharField(max_length=255, default='NA')
     supporting_doc = models.ImageField(null=True, upload_to=PathAndRename('assessment'))
 
     #def __str__(self):
         #return self.name
 
-class ApplicationEvaluationAssessment(models.Model):
-
+class Evaluation(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
-    name = models.CharField(max_length=100, default='NA')
-
-    ASPECT_TYPE = [
-        ('EN', 'Energy'),
-        ('WA', 'Water'),
-        ('TR', 'Transportation'),
-        ('BI', 'Biodiversity'),
-        ('WE', 'Waste'),
-        ('NA', 'Not Available')
-    ]
-
-    aspect_type = models.CharField(max_length=2, choices=ASPECT_TYPE, default="NA")
-
-    aspect = models.CharField(max_length=100, default='NA')
-    incentive = models.IntegerField(default=0)
-    
-    def __str__(self):
-        return self.name
-
-class ApplicationEvaluation(models.Model):
-
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
-    application_id = models.ForeignKey(Application, on_delete=models.CASCADE, null=True, related_name='application_id_evaluation')
-    evaluation_assessment_id = models.ForeignKey(ApplicationEvaluationAssessment, on_delete=models.CASCADE, null=True, related_name='application_assessment_id_evaluation')
+    application_assessment = models.ForeignKey(ApplicationAssessment, on_delete=models.CASCADE, null=True, related_name='evaluation_application_assessment')
     
     equipment = models.IntegerField(default=0)
     system = models.IntegerField(default=0)
     efficiency = models.IntegerField(default=0)
 
-    remarks = models.CharField(max_length=100, default='NA')
+    remarks = models.CharField(max_length=255, default='NA')
 
     #def __str__(self):
         #return self.name
 
-class ApplicationEvaluationSchedule(models.Model):
-
+class EvaluationSchedule(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
-    application_id = models.ForeignKey(Application, on_delete=models.CASCADE, null=True, related_name='application_id_evaluation_schedule')
+    application = models.ForeignKey(Application, on_delete=models.CASCADE, null=True, related_name='evaluation_schedule_application')
     date = models.DateField(null=True)
+
     SESSION = [
         ('AM', 'Morning'),
         ('PM', 'Evening'),
         ('NA', 'Not Available')
     ]
-    session = models.CharField(max_length=2, choices=SESSION, default="NA")
+
+    session = models.CharField(max_length=2, choices=SESSION, default='NA')
 
     #def __str__(self):
         #return self.name

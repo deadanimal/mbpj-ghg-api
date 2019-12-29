@@ -12,13 +12,12 @@ from django.utils.timezone import now
 from .models import (
     Application,
     ApplicationAssessment,
-    ApplicationEvaluation,
-    ApplicationEvaluationAssessment,
-    ApplicationEvaluationSchedule
+    AssessmentAspect,
+    Evaluation,
+    EvaluationSchedule
 )
 
 class ApplicationSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Application
         fields = '__all__'
@@ -31,23 +30,20 @@ class ApplicationAssessmentSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ['id']
 
-class ApplicationEvaluationSerializer(serializers.ModelSerializer):
-
+class AssessmentAspectSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ApplicationEvaluation
+        model = AssessmentAspect
         fields = '__all__'
         read_only_fields = ['id']
 
-class ApplicationEvaluationAssessmentSerializer(serializers.ModelSerializer):
-
+class EvaluationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ApplicationEvaluationAssessment
+        model = Evaluation
         fields = '__all__'
         read_only_fields = ['id']
 
-class ApplicationEvaluationScheduleSerializer(serializers.ModelSerializer):
-
+class EvaluationScheduleSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ApplicationEvaluationSchedule
+        model = EvaluationSchedule
         fields = '__all__'
         read_only_fields = ['id']

@@ -55,7 +55,8 @@ INSTALLED_APPS = [
     'medias',
     'organisations',
     'rebates',
-    'users',
+    'tickets',
+    'users'
 ]
 
 MIDDLEWARE = [

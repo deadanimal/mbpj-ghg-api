@@ -13,7 +13,6 @@ from users.models import (
 )
 
 class House(models.Model):
-
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     applicant = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     address = models.CharField(blank=True, max_length=255)

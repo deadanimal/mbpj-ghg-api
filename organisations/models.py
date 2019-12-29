@@ -8,13 +8,11 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 #from mbpj_ghg_api.helpers import PathAndRename
 
-
 from users.models import (
     CustomUser
 )
 
 class OrganisationType(models.Model):
-
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     name = models.CharField(max_length=100, default='NA')
 
@@ -22,7 +20,6 @@ class OrganisationType(models.Model):
         return self.name
 
 class Organisation(models.Model):
-
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     name = models.CharField(max_length=100, default='NA')
 

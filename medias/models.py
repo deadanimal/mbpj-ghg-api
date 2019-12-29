@@ -8,8 +8,6 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 from api.helpers import PathAndRename
 
-# Create your models here.
-
 class Media(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     image = models.ImageField(null=True, upload_to=PathAndRename('media'))

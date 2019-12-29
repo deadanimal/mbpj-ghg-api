@@ -11,19 +11,19 @@ from rest_framework_extensions.mixins import NestedViewSetMixin
 from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import (
-    Application, 
+    Application,
     ApplicationAssessment,
-    ApplicationEvaluation,
-    ApplicationEvaluationAssessment,
-    ApplicationEvaluationSchedule
+    AssessmentAspect,
+    Evaluation,
+    EvaluationSchedule
 )
 
 from .serializers import (
     ApplicationSerializer, 
     ApplicationAssessmentSerializer,
-    ApplicationEvaluationSerializer,
-    ApplicationEvaluationAssessmentSerializer,
-    ApplicationEvaluationScheduleSerializer
+    AssessmentAspectSerializer,
+    EvaluationSerializer,
+    EvaluationScheduleSerializer
 )
 
 class ApplicationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
@@ -49,7 +49,7 @@ class ApplicationAssessmentViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = ApplicationAssessment.objects.all()
     serializer_class = ApplicationAssessmentSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
-    filterset_fields = ['application_id', 'assessment_type']
+    filterset_fields = ['application', 'assessment_aspect']
 
     def get_permissions(self):
         if self.action == 'list':
@@ -63,9 +63,9 @@ class ApplicationAssessmentViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
         queryset = ApplicationAssessment.objects.all()
         return queryset        
 
-class ApplicationEvaluationAssessmentViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
-    queryset = ApplicationEvaluationAssessment.objects.all()
-    serializer_class = ApplicationEvaluationAssessmentSerializer
+class AssessmentAspectViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+    queryset = AssessmentAspect.objects.all()
+    serializer_class = AssessmentAspectSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
     filterset_fields = ['aspect_type']
 
@@ -78,14 +78,14 @@ class ApplicationEvaluationAssessmentViewSet(NestedViewSetMixin, viewsets.ModelV
         return [permission() for permission in permission_classes]    
 
     def get_queryset(self):
-        queryset = ApplicationEvaluationAssessment.objects.all()
+        queryset = AssessmentAspect.objects.all()
         return queryset
 
-class ApplicationEvaluationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
-    queryset = ApplicationEvaluation.objects.all()
-    serializer_class = ApplicationEvaluationSerializer
+class EvaluationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+    queryset = Evaluation.objects.all()
+    serializer_class = EvaluationSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
-    filterset_fields = ['evaluation_assessment_id', 'application_id']
+    filterset_fields = ['application_assessment']
 
     def get_permissions(self):
         if self.action == 'list':
@@ -96,14 +96,14 @@ class ApplicationEvaluationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
         return [permission() for permission in permission_classes]    
 
     def get_queryset(self):
-        queryset = ApplicationEvaluation.objects.all()
+        queryset = Evaluation.objects.all()
         return queryset
 
-class ApplicationEvaluationScheduleViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
-    queryset = ApplicationEvaluationSchedule.objects.all()
-    serializer_class = ApplicationEvaluationScheduleSerializer
+class EvaluationScheduleViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+    queryset = EvaluationSchedule.objects.all()
+    serializer_class = EvaluationScheduleSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
-    filterset_fields = ['session', 'date', 'application_id']
+    filterset_fields = ['session', 'date', 'application']
 
     def get_permissions(self):
         if self.action == 'list':
@@ -114,5 +114,5 @@ class ApplicationEvaluationScheduleViewSet(NestedViewSetMixin, viewsets.ModelVie
         return [permission() for permission in permission_classes]    
 
     def get_queryset(self):
-        queryset = ApplicationEvaluationSchedule.objects.all()
+        queryset = EvaluationSchedule.objects.all()
         return queryset

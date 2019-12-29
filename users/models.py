@@ -10,7 +10,6 @@ from django.db import models
 from api.helpers import PathAndRename
 
 class UserOccupation(models.Model):
-
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     name = models.CharField(blank=True, max_length=255)
 
@@ -18,7 +17,6 @@ class UserOccupation(models.Model):
         return self.name
 
 class CustomUser(AbstractUser):
-    
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     full_name = models.CharField(blank=True, max_length=255)
     
