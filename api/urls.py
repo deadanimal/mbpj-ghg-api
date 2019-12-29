@@ -39,7 +39,7 @@ application_assessments_router = router.register(
 )
 
 assessment_aspects_router = router.register(
-    'assessment_aspects', AssessmentAspectViewSet
+    'assessment-aspects', AssessmentAspectViewSet
 )
 
 evaluations_router = router.register(
