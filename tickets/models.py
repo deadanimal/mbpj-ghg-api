@@ -19,7 +19,8 @@ class TicketQuestion(models.Model):
 
     STATUS = [
         ('RS', 'Resolved'),
-        ('UR', 'Unresolved')
+        ('UR', 'Unresolved'),
+        ('OT', 'Other')
     ]
 
     status = models.CharField(max_length=2, choices=STATUS, default='UR')
