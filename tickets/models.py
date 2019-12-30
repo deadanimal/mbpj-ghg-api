@@ -16,6 +16,13 @@ class TicketQuestion(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     question = models.CharField(max_length=255, default='NA')
     submitted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, related_name='question_by')
+
+    STATUS = [
+        ('RS', 'Resolved'),
+        ('UR', 'Unresolved')
+    ]
+
+    status = models.CharField(max_length=2, choices=STATUS, default='UR')
     date_submitted = models.DateField(null=True)
 
 class TicketAnswer(models.Model):
