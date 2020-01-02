@@ -24,7 +24,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
         read_only_fields = ['id']
 
 class ApplicationAssessmentSerializer(serializers.ModelSerializer):
-    #supporting_doc = Base64ImageField()
+    supporting_doc = Base64ImageField()
     class Meta:
         model = ApplicationAssessment
         fields = '__all__'
