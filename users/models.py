@@ -44,4 +44,5 @@ class CustomUser(AbstractUser):
     ]
 
     user_type = models.CharField(max_length=2, choices=USER_TYPE, default='AP')
+    nric_picture = models.ImageField(null=True, upload_to=PathAndRename('nric'))
     profile_picture = models.ImageField(null=True, upload_to=PathAndRename('images'))
