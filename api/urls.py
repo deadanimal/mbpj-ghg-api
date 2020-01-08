@@ -50,6 +50,14 @@ evaluation_schedules_router = router.register(
     'evaluation-schedules', EvaluationScheduleViewSet
 )
 
+from faqs.views import (
+    FaqViewSet
+)
+
+faqs_router = router.register(
+    'faqs', FaqViewSet
+)
+
 from houses.views import (
     HouseViewSet
 )

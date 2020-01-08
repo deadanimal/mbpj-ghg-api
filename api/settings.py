@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'rest_auth.registration', 
 
     'applications',
+    'faqs',
     'houses',
     'medias',
     'organisations',
