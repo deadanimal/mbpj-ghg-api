@@ -29,12 +29,14 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import (
     CustomUser,
-    UserOccupation
+    UserOccupation,
+    UserEvent
 )
 
 from .serializers import (
     CustomUserSerializer,
-    UserOccupationSerializer
+    UserOccupationSerializer,
+    UserEventSerializer
 )
 
 class CustomUserViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
@@ -54,6 +56,13 @@ class CustomUserViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = CustomUser.objects.all()
         return queryset
+    
+    def update(self, request, pk=None):
+        UserEvent.objects.create(
+            action = 'Update user details',
+            action_by = self.request.user
+        )
+        return super().update(request)
 
 class UserOccupationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = UserOccupation.objects.all()
@@ -70,5 +79,24 @@ class UserOccupationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = UserOccupation.objects.all()
+        return queryset
+
+class UserEventViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+    queryset = UserEvent.objects.all()
+    serializer_class = UserEventSerializer
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+    filterset_fields = ['action_by', 'date_time']
+
+    def get_permissions(self):
+        if self.action == 'list':
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [AllowAny]
+
+        return [permission() for permission in permission_classes]    
+    
+    def get_queryset(self):
+        queryset = UserEvent.objects.all()
+        testing_get(self)
         return queryset
         

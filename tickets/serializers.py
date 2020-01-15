@@ -10,7 +10,8 @@ from django.utils.timezone import now
 
 from .models import (
     TicketAnswer,
-    TicketQuestion
+    TicketQuestion,
+    TicketEvent
 )
 
 class TicketAnswerSerializer(serializers.ModelSerializer):
@@ -22,5 +23,11 @@ class TicketAnswerSerializer(serializers.ModelSerializer):
 class TicketQuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = TicketQuestion
+        fields = '__all__'
+        read_only_fields = ['id']
+
+class TicketEventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TicketEvent
         fields = '__all__'
         read_only_fields = ['id']

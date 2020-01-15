@@ -98,7 +98,8 @@ rebates_router = router.register(
 
 from tickets.views import (
     TicketAnswerViewSet,
-    TicketQuestionViewSet
+    TicketQuestionViewSet,
+    TicketEventViewSet
 )
 
 ticket_answers_router = router.register(
@@ -107,6 +108,10 @@ ticket_answers_router = router.register(
 
 ticket_questions_router = router.register(
     'ticket-questions', TicketQuestionViewSet
+)
+
+ticket_events_router = router.register(
+    'ticket-events', TicketEventViewSet
 )
 
 from users.views import (

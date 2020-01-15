@@ -16,7 +16,9 @@ class House(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     applicant = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     address = models.CharField(blank=True, max_length=255)
+
     assessment_tax_account = models.CharField(blank=True, max_length=255)
+    assessment_tax_doc = models.ImageField(null=True, upload_to=PathAndRename('assessment_tax'))
 
     BUILDING_TYPE = [
         ('CD', 'Condominium'),
@@ -36,6 +38,26 @@ class House(models.Model):
     vehicle_motorcycle = models.IntegerField(default=0)
     vehicle_bicycle = models.IntegerField(default=0)
     vehicle_other = models.IntegerField(default=0)
+
+    electricity_bill_1_month = models.CharField(max_length=100, default='NA')
+    electricity_bill_1_usage = models.IntegerField(default=0)
+    electricity_bill_1_doc = models.ImageField(null=True, upload_to=PathAndRename('bills'))
+    electricity_bill_2_month = models.CharField(max_length=100, default='NA')
+    electricity_bill_2_usage = models.IntegerField(default=0)
+    electricity_bill_2_doc = models.ImageField(null=True, upload_to=PathAndRename('bills'))
+    electricity_bill_3_month = models.CharField(max_length=100, default='NA')
+    electricity_bill_3_usage = models.IntegerField(default=0)
+    electricity_bill_3_doc = models.ImageField(null=True, upload_to=PathAndRename('bills'))
+
+    water_bill_1_month = models.CharField(max_length=100, default='NA')
+    water_bill_1_usage = models.IntegerField(default=0)
+    water_bill_1_doc = models.ImageField(null=True, upload_to=PathAndRename('bills'))
+    water_bill_2_month = models.CharField(max_length=100, default='NA')
+    water_bill_2_usage = models.IntegerField(default=0)
+    water_bill_2_doc = models.ImageField(null=True, upload_to=PathAndRename('bills'))
+    water_bill_3_month = models.CharField(max_length=100, default='NA')
+    water_bill_3_usage = models.IntegerField(default=0)
+    water_bill_3_doc = models.ImageField(null=True, upload_to=PathAndRename('bills'))
 
     def __str__(self):
         return self.assessment_tax_account

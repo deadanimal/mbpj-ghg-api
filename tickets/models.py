@@ -32,3 +32,9 @@ class TicketAnswer(models.Model):
     answer = models.CharField(max_length=255, default='NA')
     submitted_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, related_name='answer_by')
     date_submitted = models.DateField(null=True)
+
+class TicketEvent(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
+    action = models.CharField(max_length=100, default='NA')
+    action_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, related_name='ticket_event_by')
+    date_time = models.DateTimeField(auto_now=True, null=True)

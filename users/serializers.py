@@ -11,7 +11,8 @@ from django.utils.timezone import now
 
 from .models import (
     CustomUser,
-    UserOccupation
+    UserOccupation,
+    UserEvent
 )
 
 class CustomUserSerializer(serializers.ModelSerializer):
@@ -25,5 +26,11 @@ class CustomUserSerializer(serializers.ModelSerializer):
 class UserOccupationSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserOccupation
+        fields = '__all__'
+        read_only_fields = ['id']
+
+class UserEventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserEvent
         fields = '__all__'
         read_only_fields = ['id']

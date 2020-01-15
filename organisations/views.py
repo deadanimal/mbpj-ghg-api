@@ -34,6 +34,10 @@ class OrganisationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
         return [permission() for permission in permission_classes]
 
     def get_queryset(self):
+
+        request_dari_client = self.request
+        print(request_dari_client)
+        
         queryset = Organisation.objects.all()
         return queryset
 

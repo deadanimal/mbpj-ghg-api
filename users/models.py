@@ -46,3 +46,12 @@ class CustomUser(AbstractUser):
     user_type = models.CharField(max_length=2, choices=USER_TYPE, default='AP')
     nric_picture = models.ImageField(null=True, upload_to=PathAndRename('nric'))
     profile_picture = models.ImageField(null=True, upload_to=PathAndRename('images'))
+
+    def __str__(self):
+        return self.full_name
+
+class UserEvent(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
+    action = models.CharField(max_length=100, default='NA')
+    action_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, related_name='user_event_by')
+    date_time = models.DateTimeField(auto_now=True, null=True)
