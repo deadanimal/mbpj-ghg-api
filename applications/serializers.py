@@ -14,7 +14,8 @@ from .models import (
     ApplicationAssessment,
     AssessmentAspect,
     Evaluation,
-    EvaluationSchedule
+    EvaluationSchedule,
+    ApplicationEvent
 )
 
 class ApplicationSerializer(serializers.ModelSerializer):
@@ -45,5 +46,11 @@ class EvaluationSerializer(serializers.ModelSerializer):
 class EvaluationScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = EvaluationSchedule
+        fields = '__all__'
+        read_only_fields = ['id']
+
+class ApplicationEventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ApplicationEvent
         fields = '__all__'
         read_only_fields = ['id']

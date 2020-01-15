@@ -10,8 +10,6 @@ from rest_framework_extensions.mixins import NestedViewSetMixin
 
 from django_filters.rest_framework import DjangoFilterBackend
 
-#import req
-
 from .models import (
     TicketAnswer,
     TicketQuestion,
@@ -103,6 +101,6 @@ class TicketEventViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     
     def get_queryset(self):
         queryset = TicketEvent.objects.all()
-        testing_get(self)
+        #testing_get(self)
         return queryset
     

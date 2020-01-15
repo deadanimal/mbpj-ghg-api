@@ -97,6 +97,5 @@ class UserEventViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     
     def get_queryset(self):
         queryset = UserEvent.objects.all()
-        testing_get(self)
         return queryset
         

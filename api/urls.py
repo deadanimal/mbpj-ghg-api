@@ -27,7 +27,8 @@ from applications.views import (
     ApplicationAssessmentViewSet,
     AssessmentAspectViewSet,
     EvaluationViewSet,
-    EvaluationScheduleViewSet
+    EvaluationScheduleViewSet,
+    ApplicationEventViewSet
 )
 
 applications_router = router.register(
@@ -50,6 +51,10 @@ evaluation_schedules_router = router.register(
     'evaluation-schedules', EvaluationScheduleViewSet
 )
 
+application_events_router = router.register(
+    'application-events', ApplicationEventViewSet
+)
+
 from faqs.views import (
     FaqViewSet
 )
@@ -59,12 +64,18 @@ faqs_router = router.register(
 )
 
 from houses.views import (
-    HouseViewSet
+    HouseViewSet,
+    HouseEventViewSet
 )
 
 houses_router = router.register(
     'houses', HouseViewSet
 )
+
+house_events_router = router.register(
+    'house-events', HouseEventViewSet
+)
+
 
 from medias.views import (
     MediaViewSet
@@ -116,7 +127,8 @@ ticket_events_router = router.register(
 
 from users.views import (
     CustomUserViewSet,
-    UserOccupationViewSet
+    UserOccupationViewSet,
+    UserEventViewSet
 )
 
 users_router = router.register(
@@ -126,6 +138,11 @@ users_router = router.register(
 user_occupations_router = router.register(
     'user-occupations', UserOccupationViewSet
 )
+
+user_events_router = router.register(
+    'user-events', UserEventViewSet
+)
+
 
 urlpatterns = [
     url(r'v1/', include(router.urls)),

@@ -15,7 +15,8 @@ from .models import (
     ApplicationAssessment,
     AssessmentAspect,
     Evaluation,
-    EvaluationSchedule
+    EvaluationSchedule,
+    ApplicationEvent
 )
 
 from .serializers import (
@@ -23,7 +24,8 @@ from .serializers import (
     ApplicationAssessmentSerializer,
     AssessmentAspectSerializer,
     EvaluationSerializer,
-    EvaluationScheduleSerializer
+    EvaluationScheduleSerializer,
+    ApplicationEventSerializer
 )
 
 class ApplicationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
@@ -44,6 +46,20 @@ class ApplicationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = Application.objects.all()
         return queryset
+    
+    def create(self, request):
+        ApplicationEvent.objects.create(
+            action = 'Create application',
+            action_by = self.request.user
+        )
+        return super().create(request)
+    
+    def update(self, request, pk=None):
+        ApplicationEvent.objects.create(
+            action = 'Update application details',
+            action_by = self.request.user
+        )
+        return super().update(request)
 
 class ApplicationAssessmentViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = ApplicationAssessment.objects.all()
@@ -61,7 +77,21 @@ class ApplicationAssessmentViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     
     def get_queryset(self):
         queryset = ApplicationAssessment.objects.all()
-        return queryset        
+        return queryset
+
+    def create(self, request):
+        ApplicationEvent.objects.create(
+            action = 'Create application assessment',
+            action_by = self.request.user
+        )
+        return super().create(request)
+    
+    def update(self, request, pk=None):
+        ApplicationEvent.objects.create(
+            action = 'Update application assessment details',
+            action_by = self.request.user
+        )
+        return super().update(request)       
 
 class AssessmentAspectViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = AssessmentAspect.objects.all()
@@ -80,6 +110,20 @@ class AssessmentAspectViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = AssessmentAspect.objects.all()
         return queryset
+    
+    def create(self, request):
+        ApplicationEvent.objects.create(
+            action = 'Create application aspect',
+            action_by = self.request.user
+        )
+        return super().create(request)
+    
+    def update(self, request, pk=None):
+        ApplicationEvent.objects.create(
+            action = 'Update application aspect details',
+            action_by = self.request.user
+        )
+        return super().update(request)
 
 class EvaluationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = Evaluation.objects.all()
@@ -98,6 +142,20 @@ class EvaluationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = Evaluation.objects.all()
         return queryset
+    
+    def create(self, request):
+        ApplicationEvent.objects.create(
+            action = 'Create evaluation',
+            action_by = self.request.user
+        )
+        return super().create(request)
+    
+    def update(self, request, pk=None):
+        ApplicationEvent.objects.create(
+            action = 'Update evaluation details',
+            action_by = self.request.user
+        )
+        return super().update(request)
 
 class EvaluationScheduleViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = EvaluationSchedule.objects.all()
@@ -115,4 +173,36 @@ class EvaluationScheduleViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = EvaluationSchedule.objects.all()
+        return queryset
+    
+    def create(self, request):
+        ApplicationEvent.objects.create(
+            action = 'Create evaluation schedule',
+            action_by = self.request.user
+        )
+        return super().create(request)
+    
+    def update(self, request, pk=None):
+        ApplicationEvent.objects.create(
+            action = 'Update evaluation schedule',
+            action_by = self.request.user
+        )
+        return super().update(request)
+
+class ApplicationEventViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+    queryset = ApplicationEvent.objects.all()
+    serializer_class = ApplicationEventSerializer
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+    filterset_fields = ['action_by', 'date_time']
+
+    def get_permissions(self):
+        if self.action == 'list':
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [AllowAny]
+
+        return [permission() for permission in permission_classes]    
+    
+    def get_queryset(self):
+        queryset = ApplicationEvent.objects.all()
         return queryset

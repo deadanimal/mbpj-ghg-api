@@ -11,11 +11,13 @@ from rest_framework_extensions.mixins import NestedViewSetMixin
 from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import (
-    House
+    House,
+    HouseEvent
 )
 
 from .serializers import (
-    HouseSerializer
+    HouseSerializer,
+    HouseEventSerializer
 )
 
 class HouseViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
@@ -34,4 +36,36 @@ class HouseViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = House.objects.all()
+        return queryset
+    
+    def create(self, request):
+        HouseEvent.objects.create(
+            action = 'Create house',
+            action_by = self.request.user
+        )
+        return super().create(request)
+    
+    def update(self, request, pk=None):
+        UserEvent.objects.create(
+            action = 'Update house details',
+            action_by = self.request.user
+        )
+        return super().update(request)
+
+class HouseEventViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+    queryset = HouseEvent.objects.all()
+    serializer_class = HouseEventSerializer
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+    filterset_fields = ['action_by', 'date_time']
+
+    def get_permissions(self):
+        if self.action == 'list':
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [AllowAny]
+
+        return [permission() for permission in permission_classes]    
+    
+    def get_queryset(self):
+        queryset = HouseEvent.objects.all()
         return queryset

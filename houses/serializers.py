@@ -10,7 +10,8 @@ from drf_extra_fields.fields import Base64ImageField
 from django.utils.timezone import now
 
 from .models import (
-    House
+    House,
+    HouseEvent
 )
 
 class HouseSerializer(serializers.ModelSerializer):
@@ -23,5 +24,11 @@ class HouseSerializer(serializers.ModelSerializer):
     water_bill_3_doc = Base64ImageField()
     class Meta:
         model = House
+        fields = '__all__'
+        read_only_fields = ['id']
+
+class HouseEventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HouseEvent
         fields = '__all__'
         read_only_fields = ['id']
