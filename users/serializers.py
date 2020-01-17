@@ -21,7 +21,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = 'id','full_name', 'new_nric', 'old_nric', 'phone', 'tel', 'email', 'gender', 'occupation', 'nric_picture', 'profile_picture', 'user_type', 'username', 'is_active'
-        read_only_fields = ['email', 'id']
+        read_only_fields = ['id']
 
 class UserOccupationSerializer(serializers.ModelSerializer):
     class Meta:
