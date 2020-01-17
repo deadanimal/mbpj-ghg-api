@@ -46,7 +46,7 @@ class HouseViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
         return super().create(request)
     
     def update(self, request, pk=None):
-        UserEvent.objects.create(
+        HouseEvent.objects.create(
             action = 'Update house details',
             action_by = self.request.user
         )
