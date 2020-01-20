@@ -149,7 +149,7 @@ urlpatterns = [
     url(r'auth/', include('rest_auth.urls')),
     url(r'auth/registration/', include('rest_auth.registration.urls')),
 
-    url('auth/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    url('auth/obtain/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     url('auth/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    url('auth/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    url('auth/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]
