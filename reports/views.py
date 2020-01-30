@@ -61,13 +61,13 @@ class ReportViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
         html_string = render_to_string('pdf_template.html')
 
         html = HTML(string=html_string)
-        html.write_pdf(target='/tmp/mypdf.pdf');
+        pdf_file = html.write_pdf()
 
-        fs = FileSystemStorage('/tmp')
-        with fs.open('mypdf.pdf') as pdf:
-            response = HttpResponse(pdf, content_type='application/pdf')
-            response['Content-Disposition'] = 'attachment; filename="GHG_Report.pdf"'
-            return response
+        #fs = FileSystemStorage('/tmp')
+        #with fs.open('GHG_Report.pdf') as pdf:
+        response = HttpResponse(pdf_file, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="GHG_Report.pdf"'
+        #return response
 
         return response
         #create_pdf(request)
