@@ -66,7 +66,7 @@ class ReportViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
         #fs = FileSystemStorage('/tmp')
         #with fs.open('GHG_Report.pdf') as pdf:
         response = HttpResponse(pdf_file, content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment;filename="GHG_Report.pdf"'
+        response['Content-Disposition'] = 'filename="GHG_Report.pdf"'
         #response['Content-Disposition'] = 'attachment;filename="GHG_Report.pdf"'
         #return response
 
