@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'medias',
     'organisations',
     'rebates',
+    'reports',
     'tickets',
     'users'
 ]
@@ -77,7 +78,9 @@ ROOT_URLCONF = 'api.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates') # for reporting template
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

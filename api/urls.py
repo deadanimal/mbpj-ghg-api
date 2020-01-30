@@ -107,6 +107,14 @@ rebates_router = router.register(
     'rebates', RebateViewSet
 )
 
+from reports.views import (
+    ReportViewSet
+)
+
+reports_router = router.register(
+    'reports', ReportViewSet
+)
+
 from tickets.views import (
     TicketAnswerViewSet,
     TicketQuestionViewSet,

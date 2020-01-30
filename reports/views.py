@@ -10,6 +10,11 @@ from rest_framework_extensions.mixins import NestedViewSetMixin
 
 from django_filters.rest_framework import DjangoFilterBackend
 
+from django.template.loader import render_to_string
+from weasyprint import HTML
+from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse
+
 from .models import (
     Report
 )
@@ -17,6 +22,21 @@ from .models import (
 from .serializers import (
     ReportSerializer
 )
+
+def create_pdf(request):
+    paragraphs = ['first paragraph', 'second paragraph', 'third paragraph']
+    html_string = render_to_string('pdf_template.html', {'paragraphs': paragraphs})
+
+    html = HTML(string=html_string)
+    #html.write_pdf(target='/tmp/mypdf.pdf');
+
+    fs = FileSystemStorage('/tmp')
+    with fs.open('mypdf.pdf') as pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="mypdf.pdf"'
+        return response
+
+    return response
 
 class ReportViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = Report.objects.all()
@@ -35,3 +55,20 @@ class ReportViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = Report.objects.all()
         return queryset
+
+    def create(self, request):
+        #paragraphs = ['first paragraph', 'second paragraph', 'third paragraph']
+        html_string = render_to_string('pdf_template.html')
+
+        html = HTML(string=html_string)
+        html.write_pdf(target='/tmp/mypdf.pdf');
+
+        fs = FileSystemStorage('/tmp')
+        with fs.open('mypdf.pdf') as pdf:
+            response = HttpResponse(pdf, content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename="GHG_Report.pdf"'
+            return response
+
+        return response
+        #create_pdf(request)
+        #return super().create(request)

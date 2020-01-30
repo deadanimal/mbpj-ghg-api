@@ -10,11 +10,11 @@ from rest_framework import serializers
 from django.utils.timezone import now
 
 from .models import (
-    Rebate
+    Report
 )
 
-class RebateSerializer(serializers.ModelSerializer):
+class ReportSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Rebate
+        model = Report
         fields = '__all__'
         read_only_fields = ['id']
