@@ -10,4 +10,6 @@ from api.helpers import PathAndRename
 
 class Report(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
+    name = models.CharField(blank=True, max_length=100)
+    pdf = models.FileField(upload_to=PathAndRename('pdf'), null=True)
 
