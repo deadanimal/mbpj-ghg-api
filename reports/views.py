@@ -15,9 +15,6 @@ from weasyprint import HTML
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
 
-from io import BytesIO
-from django.core.files import File
-
 from .models import (
     Report
 )
@@ -60,22 +57,29 @@ class ReportViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
         return queryset
 
     def create(self, request):
-        #paragraphs = ['first paragraph', 'second paragraph', 'third paragraph']
         html_string = render_to_string('pdf_template.html')
 
         html = HTML(string=html_string)
-        pdf_file = html.write_pdf()
+        pdf_file = html.write_pdf() # you alreagdy generated a PDF file instance
 
+        # TODO: save pdf file instance into django-storage
+        # TODO: get the URL of the file instance that was saved in django-storage
+
+        response_json = {
+            'link': 'django-storages.object/link'
+        }
+        return response_json
+
+        """
         #fs = FileSystemStorage('/tmp')
         #with fs.open('GHG_Report.pdf') as pdf:
         response = HttpResponse(pdf_file, content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment;filename="GHG_Report.pdf"'
-        #response['Content-Disposition'] = 'attachment;filename="GHG_Report.pdf"'
+        response['Content-Disposition'] = 'filename="GHG_Report.pdf"'
+            #response['Content-Disposition'] = 'attachment;filename="GHG_Report.pdf"'
         return response
-
-        ##return response
-        #create_pdf(request)
-        Report.objects.create(
+        
+        self.objects.create(
             pdf = response
         )
         return super().create(request)
+        """
