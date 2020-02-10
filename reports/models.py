@@ -15,7 +15,7 @@ from django.template.loader import render_to_string
 class Report(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     name = models.CharField(blank=True, max_length=100)
-    pdf = models.FileField(upload_to=PathAndRename('pdf'), null=True)
+    pdf_file_url = models.FileField(upload_to=PathAndRename('pdf'), null=True)
 
 
 

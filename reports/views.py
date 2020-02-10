@@ -15,6 +15,10 @@ from weasyprint import HTML
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
 
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+from django.conf import settings
+
 from .models import (
     Report
 )
@@ -23,26 +27,12 @@ from .serializers import (
     ReportSerializer
 )
 
-def create_pdf(request):
-    paragraphs = ['first paragraph', 'second paragraph', 'third paragraph']
-    html_string = render_to_string('pdf_template.html', {'paragraphs': paragraphs})
-
-    html = HTML(string=html_string)
-    #html.write_pdf(target='/tmp/mypdf.pdf');
-
-    fs = FileSystemStorage('/tmp')
-    with fs.open('mypdf.pdf') as pdf:
-        response = HttpResponse(pdf, content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment; filename="mypdf.pdf"'
-        return response
-
-    return response
 
 class ReportViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
-    #filterset_fields = ['application_id']
+    # filterset_fields = ['application_id']
 
     def get_permissions(self):
         if self.action == 'list':
@@ -60,26 +50,19 @@ class ReportViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
         html_string = render_to_string('pdf_template.html')
 
         html = HTML(string=html_string)
-        pdf_file = html.write_pdf() # you alreagdy generated a PDF file instance
+        pdf_file = html.write_pdf()# you alreagdy generated a PDF file instance
 
         # TODO: save pdf file instance into django-storage
         # TODO: get the URL of the file instance that was saved in django-storage
-
-        response_json = {
-            'link': 'django-storages.object/link'
-        }
-        return response_json
-
-        """
-        #fs = FileSystemStorage('/tmp')
-        #with fs.open('GHG_Report.pdf') as pdf:
-        response = HttpResponse(pdf_file, content_type='application/pdf')
-        response['Content-Disposition'] = 'filename="GHG_Report.pdf"'
-            #response['Content-Disposition'] = 'attachment;filename="GHG_Report.pdf"'
-        return response
-        
-        self.objects.create(
-            pdf = response
+        saved_url_path = default_storage.save(
+            'GHG_Report.pdf', 
+            ContentFile(pdf_file)
         )
+        full_url_path = settings.MEDIA_ROOT + saved_url_path
+
+        Report.objects.create(
+            # name
+            pdf_file_url=full_url_path
+        )
+
         return super().create(request)
-        """
