@@ -16,8 +16,8 @@ from .models import (
 )
 
 class CustomUserSerializer(serializers.ModelSerializer):
-    nric_picture = Base64ImageField()
-    profile_picture = Base64ImageField()
+    nric_picture = Base64ImageField(required=False)
+    profile_picture = Base64ImageField(required=False)
     class Meta:
         model = CustomUser
         fields = 'id','full_name', 'new_nric', 'old_nric', 'phone', 'tel', 'email', 'gender', 'occupation', 'nric_picture', 'profile_picture', 'user_type', 'username', 'is_active'

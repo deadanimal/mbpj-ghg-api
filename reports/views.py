@@ -65,4 +65,4 @@ class ReportViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
             pdf_file_url=full_url_path
         )
 
-        return super().create(request)
+        return self.create(request)
