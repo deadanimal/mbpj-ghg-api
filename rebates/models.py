@@ -22,5 +22,8 @@ class Rebate(models.Model):
     amount_approved = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.name    
+        return self.name
+
+    class Meta:
+        ordering = ['-payment_date']
 

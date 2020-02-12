@@ -37,6 +37,9 @@ class AssessmentAspect(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['name']
+
 class Application(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     applicant = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, related_name='application_applicant')
@@ -56,6 +59,9 @@ class Application(models.Model):
     status = models.CharField(max_length=2, choices=STATUS, default='CR')
     applied_house = models.ForeignKey(House, on_delete=models.CASCADE, null=True, related_name='applied_house_id')
     date_submitted = models.DateField(null=True)
+
+    class Meta:
+        ordering = ['-date_submitted']
 
 class ApplicationAssessment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
@@ -95,9 +101,15 @@ class EvaluationSchedule(models.Model):
 
     #def __str__(self):
         #return self.name
+    
+    class Meta:
+        ordering = ['-date']
 
 class ApplicationEvent(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     action = models.CharField(max_length=100, default='NA')
     action_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, related_name='application_event_by')
     date_time = models.DateTimeField(auto_now=True, null=True)
+
+    class Meta:
+        ordering = ['-date_time']

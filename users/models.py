@@ -55,3 +55,6 @@ class UserEvent(models.Model):
     action = models.CharField(max_length=100, default='NA')
     action_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, related_name='user_event_by')
     date_time = models.DateTimeField(auto_now=True, null=True)
+
+    class Meta:
+        ordering = ['-date_time']
