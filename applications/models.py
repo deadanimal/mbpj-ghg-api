@@ -16,6 +16,7 @@ from houses.models import (
     House
 )
 
+
 class AssessmentAspect(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     name = models.CharField(max_length=100, default='NA')
@@ -33,18 +34,19 @@ class AssessmentAspect(models.Model):
 
     aspect = models.CharField(max_length=100, default='NA')
     incentive = models.IntegerField(default=0)
-    
+
     def __str__(self):
         return self.name
 
     class Meta:
         ordering = ['name']
 
+
 class Application(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     applicant = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, related_name='application_applicant')
     evaluator_nominated = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, related_name='application_evaluator_nominated')
-    
+
     STATUS = [
         ('CM', 'Completed'),
         ('CR', 'Created'),
@@ -63,6 +65,7 @@ class Application(models.Model):
     class Meta:
         ordering = ['-date_submitted']
 
+
 class ApplicationAssessment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     application = models.ForeignKey(Application, on_delete=models.CASCADE, null=True, related_name='application_assessment_application')
@@ -70,21 +73,23 @@ class ApplicationAssessment(models.Model):
     remarks = models.CharField(max_length=255, default='NA')
     supporting_doc = models.ImageField(null=True, upload_to=PathAndRename('assessment'))
 
-    #def __str__(self):
-        #return self.name
+    # def __str__(self):
+        # return self.name
+
 
 class Evaluation(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     application_assessment = models.ForeignKey(ApplicationAssessment, on_delete=models.CASCADE, null=True, related_name='evaluation_application_assessment')
-    
+
     equipment = models.IntegerField(default=0)
     system = models.IntegerField(default=0)
     efficiency = models.IntegerField(default=0)
 
     remarks = models.CharField(max_length=255, default='NA')
 
-    #def __str__(self):
-        #return self.name
+    # def __str__(self):
+        # return self.name
+
 
 class EvaluationSchedule(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
@@ -99,11 +104,12 @@ class EvaluationSchedule(models.Model):
 
     session = models.CharField(max_length=2, choices=SESSION, default='NA')
 
-    #def __str__(self):
-        #return self.name
-    
+    # def __str__(self):
+        # return self.name
+
     class Meta:
         ordering = ['-date']
+
 
 class ApplicationEvent(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
