@@ -17,7 +17,7 @@ class House(models.Model):
     applicant = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     address = models.CharField(blank=True, max_length=255)
     postcode = models.CharField(blank=True, max_length=5)
-    city = models.CharField(blank=True, max_length=100)
+    area = models.CharField(blank=True, max_length=100)
 
     assessment_tax_account = models.CharField(blank=True, max_length=255)
     assessment_tax_doc = models.ImageField(null=True, upload_to=PathAndRename('assessment_tax'))
