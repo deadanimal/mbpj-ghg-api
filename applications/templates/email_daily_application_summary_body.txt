@@ -1,0 +1,7 @@
+Hello,
+
+This is the application summary:
+
+    {% for item in applications %}
+        {{ item.no }} - {{ item.name }
+    {% endfor %}
