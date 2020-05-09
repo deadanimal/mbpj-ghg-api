@@ -39,6 +39,8 @@ from .serializers import (
     UserEventSerializer
 )
 
+from .tasks import (initialise_app_for)
+
 class CustomUserViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
@@ -63,6 +65,14 @@ class CustomUserViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
             action_by = self.request.user
         )
         return super().update(request)
+
+    @action(methods=['GET'], detail=False)
+    def initialise_app(self):
+        
+        user_ = self.request.user
+        data = initialise_app_for(user)
+
+        return JsonResponse(data, safe=False)              
 
 class UserOccupationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = UserOccupation.objects.all()
