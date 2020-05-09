@@ -19,10 +19,11 @@ from users.models import CustomUser
 def email_daily_application_summary():
 
     user_list = CustomUser.objects.filter(user_type='AD')
+    email_list = [user.email for user in user_list]
 
     merge_data = {
-        'ORDERNO': "12345", 
-        'TRACKINGNO': "1Z987"
+        'date': "", # to generate date and pass to email 
+        'applications': []
     }
     
     plaintext_context = Context(autoescape=False)  
